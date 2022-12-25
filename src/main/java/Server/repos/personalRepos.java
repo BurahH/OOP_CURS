@@ -1,6 +1,6 @@
-package repos;
+package Server.repos;
 
-import domain.Personal;
+import API.domain.Personal;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface personalRepos extends JpaRepository<Personal, Long> {

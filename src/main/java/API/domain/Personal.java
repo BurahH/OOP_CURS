@@ -1,4 +1,4 @@
-package domain;
+package API.domain;
 
 import javax.persistence.*;
 

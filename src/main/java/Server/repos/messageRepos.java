@@ -1,6 +1,6 @@
-package repos;
+package Server.repos;
 
-import domain.Message;
+import API.domain.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface messageRepos extends JpaRepository<Message, Long> {

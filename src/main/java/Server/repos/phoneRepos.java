@@ -1,4 +1,4 @@
-package repos;
+package Server.repos;
 
 public interface phoneRepos {
 }

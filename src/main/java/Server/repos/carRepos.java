@@ -1,6 +1,6 @@
-package repos;
+package Server.repos;
 
-import domain.Car;
+import API.domain.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface carRepos extends JpaRepository<Car, Long> {
