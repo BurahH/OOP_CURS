@@ -77,4 +77,13 @@ public class ParkingPlace {
             return true;
         }
     }
+
+    public boolean checkEndTime(){
+        if(this.endDate == null){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 }

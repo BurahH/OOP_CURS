@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class RegistrationService {
 
-    public User postLogin(String username, String password) {
+    public User postLogin(String username, String password) {            //псевдо вход возвращает null если он не успешен либо пользователя усли успешен
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/login";
         User user = new User();
@@ -28,7 +28,7 @@ public class RegistrationService {
         return response.getBody();
     }
 
-    public boolean postRegistration(String username, String password){
+    public boolean postRegistration(String username, String password){          //возвращает true если успешная регистрация или false если такой login уже существует
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/registration";
         User user = new User();

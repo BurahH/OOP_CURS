@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 public class ListCarService {
-    public User postCar(User user, Car car) {
+    public User postCar(User user, Car car) {        //отправка нового автомобиля на сервер
         car.setUser(user);
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/car";
@@ -31,7 +31,7 @@ public class ListCarService {
         return response.getBody();
     }
 
-    public List<Car> getCar(User user) {
+    public List<Car> getCar(User user) {        //получение автомобилей пользователя
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/car/find";
 
@@ -48,7 +48,7 @@ public class ListCarService {
         return response.getBody();
     }
 
-    public Boolean deleteCar(Car car) {
+    public Boolean deleteCar(Car car) {            //удаление конкретного автомобиля пользователя
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/car/delete";
 

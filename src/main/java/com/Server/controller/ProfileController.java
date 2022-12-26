@@ -64,11 +64,16 @@ public class ProfileController {
     }
 
     @PostMapping("/message")
-    public User setMessage(@RequestBody Message message, UriComponentsBuilder builder){
+    public Boolean setMessage(@RequestBody Message message, UriComponentsBuilder builder){
         User user = userService.findByUsername(message.getUser().getUsername());
+        message.setAuthor(user.getUsername());
+        user = userService.findByUsername(message.getAuthor());
+        if(user == null){
+            return false;
+        }
         message.setUser(user);
         messageService.saveMessage(message);
-        return user;
+        return true;
     }
 
     @PostMapping("/message/find")

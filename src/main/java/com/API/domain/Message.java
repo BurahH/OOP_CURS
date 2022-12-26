@@ -10,6 +10,8 @@ public class Message {
 
     private String message;
 
+    private String author;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "user_id")
     private User user;
@@ -44,5 +46,13 @@ public class Message {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

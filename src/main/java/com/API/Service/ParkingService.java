@@ -19,7 +19,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class ParkingService {
-    public List<ParkingPlace> getParkingPlace() {
+    public List<ParkingPlace> getParkingPlace() {          //получение всех парковочных мест
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/parking";
 
@@ -34,7 +34,7 @@ public class ParkingService {
         return response.getBody();
     }
 
-    public Boolean buyParkingPlace(ParkingPlace parkingPlace, User user, int month){
+    public Boolean buyParkingPlace(ParkingPlace parkingPlace, User user, int month){       //покупка конкретного парковочного места mouth - количество методов аренды
         //String TIME_SERVER = "time-a.nist.gov";        //TODO Неправильное использование времени
         //NTPUDPClient timeClient = new NTPUDPClient();
         //InetAddress inetAddress = InetAddress.getByName(TIME_SERVER);

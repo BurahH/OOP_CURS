@@ -1,8 +1,10 @@
 package com.Server.service;
 
+import com.API.domain.Message;
 import com.API.domain.ParkingPlace;
 import com.API.domain.Price;
 import com.API.domain.User;
+import com.Server.repos.MessageRepos;
 import com.Server.repos.ParkingPlaceRepos;
 import com.Server.repos.PriceRepos;
 import com.Server.repos.UserRepos;
@@ -22,6 +24,9 @@ public class ParkingPlaceService {
 
     @Autowired
     private UserRepos userRepos;
+
+    @Autowired
+    private MessageRepos messageRepos;
 
     public List<ParkingPlace> findAll() {
         List<ParkingPlace> parkingPlaceList = parkingPlaceRepos.findAll();
@@ -53,5 +58,10 @@ public class ParkingPlaceService {
         parkingPlace.setEndDate(date);
         parkingPlace.setUser(user);
         parkingPlaceRepos.save(parkingPlace);
+        Message message = new Message();
+        message.setAuthor("Системное сообщение");
+        message.setMessage("Успешная покупка места под номером " + parkingPlace.getNumber() + " совершена. Аренда закончится в " + parkingPlace.getEndDate());
+        message.setUser(parkingPlace.getUser());
+        messageRepos.save(message);
     }
 }

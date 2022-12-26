@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ProfileService {
 
-    public User postPersonal(User user, Personal personal) {
+    public User postPersonal(User user, Personal personal) {          //отправка новых персональных данных или их редактирование(в этом случае необходимо наличие id у класса personal)
         personal.setUser(user);
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/personal";
@@ -33,7 +33,7 @@ public class ProfileService {
         return response.getBody();
     }
 
-    public Personal getPersonal(User user) {
+    public Personal getPersonal(User user) {                    //получить личные данные конкретного пользователя
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/personal/find";
 
@@ -50,7 +50,7 @@ public class ProfileService {
         return response.getBody();
     }
 
-    public User postPhone(User user, Phone phone) {
+    public User postPhone(User user, Phone phone) {          //отправка нового номера телефона
         phone.setUser(user);
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/phone";
@@ -68,7 +68,7 @@ public class ProfileService {
         return response.getBody();
     }
 
-    public List<Phone> getPhone(User user) {
+    public List<Phone> getPhone(User user) {           //получение номеров пользователя
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/phone/find";
 
@@ -85,7 +85,7 @@ public class ProfileService {
         return response.getBody();
     }
 
-    public Boolean deletePhone(Phone phone) {
+    public Boolean deletePhone(Phone phone) {        //удаление телефона пользователя
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/phone/delete";
 
@@ -102,14 +102,15 @@ public class ProfileService {
         return response.getBody();
     }
 
-    public User postMessage(User user, Message message) {
+    public Boolean postMessage(User user, Message message, String recipient) {      //TODO recipient - username получателя сообщения
         message.setUser(user);
+        message.setAuthor(recipient);
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/message/find";
 
         HttpEntity<Message> request = new HttpEntity<Message>(message);
 
-        ResponseEntity<User> response = restTemplate.exchange(resourceUrl, HttpMethod.POST, request , User.class);
+        ResponseEntity<Boolean> response = restTemplate.exchange(resourceUrl, HttpMethod.POST, request , Boolean.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
             System.out.println("Request Successful");
@@ -117,10 +118,10 @@ public class ProfileService {
             System.out.println(response.getStatusCode());
         }
 
-        return response.getBody();
+        return response.getBody(); //TODO При успешной отправке возвращает true при отсутствие пользователя с таким username - false
     }
 
-    public List<Message> getMessage(User user) {
+    public List<Message> getMessage(User user) {                //получения сообщения для пользователя
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/message/find";
 
@@ -137,7 +138,7 @@ public class ProfileService {
         return response.getBody();
     }
 
-    public Boolean deleteMessage(Message message) {
+    public Boolean deleteMessage(Message message) {      //удаление сообщения конкретного пользователя
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/message/delete";
 

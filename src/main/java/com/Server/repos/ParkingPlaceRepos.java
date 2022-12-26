@@ -8,5 +8,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface ParkingPlaceRepos extends JpaRepository<ParkingPlace, Long> {
-    List<ParkingPlace> findByEndTimeLessThan(Date date);
+    List<ParkingPlace> findByEndDateLessThan(Date date);
 }
