@@ -72,4 +72,13 @@ public class User{
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public boolean checkPassword() {
+        if(this.password == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 }

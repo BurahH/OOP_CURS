@@ -44,7 +44,7 @@ public class ListCarService {
         } else {
             System.out.println(response.getStatusCode());
         }
-        System.out.println(response.getBody());
+
         return response.getBody();
     }
 

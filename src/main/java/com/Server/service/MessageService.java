@@ -1,7 +1,6 @@
 package com.Server.service;
 
 import com.API.domain.Message;
-import com.API.domain.Phone;
 import com.API.domain.User;
 import com.Server.repos.MessageRepos;
 import org.springframework.beans.factory.annotation.Autowired;

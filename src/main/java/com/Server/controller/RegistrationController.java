@@ -1,17 +1,15 @@
 package com.Server.controller;
 
 import com.API.domain.User;
-import com.Server.repos.UserRepos;
 import com.Server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-public class registrationController {
+public class RegistrationController {
 
     @Autowired
     private UserService userService;

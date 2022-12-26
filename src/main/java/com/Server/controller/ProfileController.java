@@ -8,8 +8,8 @@ import com.Server.service.MessageService;
 import com.Server.service.PersonalService;
 import com.Server.service.PhoneService;
 import com.Server.service.UserService;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -85,5 +85,18 @@ public class ProfileController {
     public Boolean deleteMessage(@RequestBody Message message){
         messageService.deleteMessage(message);
         return true;
+    }
+
+    @PostMapping("/profile/redact/user")
+    public Boolean redactUser(@RequestBody User user){
+        User userNew = userService.findById(user.getId());
+        if((userNew == null) || !BCrypt.checkpw(user.getUsername(), userNew.getPassword())){
+            return false;
+        }
+        else{
+            userNew.setPassword(user.getPassword());
+            userService.redactUser(user);
+            return true;
+        }
     }
 }

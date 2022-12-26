@@ -64,4 +64,10 @@ public class ParkingPlaceService {
         message.setUser(parkingPlace.getUser());
         messageRepos.save(message);
     }
+
+    public Boolean redactParkingPlace(ParkingPlace parkingPlace) {
+        parkingPlace.setUser(parkingPlaceRepos.getOne(parkingPlace.getId()).getUser());
+        parkingPlaceRepos.save(parkingPlace);
+        return true;
+    }
 }

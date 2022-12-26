@@ -81,7 +81,7 @@ public class ProfileService {
         } else {
             System.out.println(response.getStatusCode());
         }
-        System.out.println(response.getBody());
+
         return response.getBody();
     }
 
@@ -102,7 +102,7 @@ public class ProfileService {
         return response.getBody();
     }
 
-    public Boolean postMessage(User user, Message message, String recipient) {      //TODO recipient - username получателя сообщения
+    public Boolean postMessage(User user, Message message, String recipient) {      //recipient - username получателя сообщения
         message.setUser(user);
         message.setAuthor(recipient);
         RestTemplate restTemplate = new RestTemplate();
@@ -118,10 +118,10 @@ public class ProfileService {
             System.out.println(response.getStatusCode());
         }
 
-        return response.getBody(); //TODO При успешной отправке возвращает true при отсутствие пользователя с таким username - false
+        return response.getBody(); //При успешной отправке возвращает true при отсутствие пользователя с таким username - false
     }
 
-    public List<Message> getMessage(User user) {                //получения сообщения для пользователя
+    public List<Message> getMessage(User user) {                //получения всех сообщений для пользователя
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/message/find";
 
@@ -134,7 +134,7 @@ public class ProfileService {
         } else {
             System.out.println(response.getStatusCode());
         }
-        System.out.println(response.getBody());
+
         return response.getBody();
     }
 
@@ -153,5 +153,23 @@ public class ProfileService {
         }
 
         return response.getBody();
+    }
+
+    public Boolean redactUser(User user, String password) {          //отправка отредактировано пользователя (необходим текущий пароль пользователя), редактирование логина запрещено
+        user.setUsername(password);                                               //Новый пароль добавляйте в класс
+        RestTemplate restTemplate = new RestTemplate();                           //Метод для обычного пользователя отредактировать себя (Пока можно изменить только свой пароль)
+        String resourceUrl = "http://localhost:8080/profile/redact/user";         //Контролируйте что введен новый пароль в класс иначе бан пользователя
+
+        HttpEntity<User> request = new HttpEntity<User>(user);
+
+        ResponseEntity<Boolean> response = restTemplate.exchange(resourceUrl, HttpMethod.POST, request , Boolean.class);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            System.out.println("Request Successful");
+        } else {
+            System.out.println(response.getStatusCode());
+        }
+
+        return response.getBody();     //если false значит ошибка в текущем пароле
     }
 }

@@ -30,11 +30,11 @@ public class ParkingService {
         } else {
             System.out.println(response.getStatusCode());
         }
-        System.out.println(response.getBody());
+
         return response.getBody();
     }
 
-    public Boolean buyParkingPlace(ParkingPlace parkingPlace, User user, int month){       //покупка конкретного парковочного места mouth - количество методов аренды
+    public Boolean buyParkingPlace(ParkingPlace parkingPlace, User user, int month){       //покупка конкретного парковочного места mouth - количество месяцев аренды
         //String TIME_SERVER = "time-a.nist.gov";        //TODO Неправильное использование времени
         //NTPUDPClient timeClient = new NTPUDPClient();
         //InetAddress inetAddress = InetAddress.getByName(TIME_SERVER);
@@ -61,5 +61,24 @@ public class ParkingService {
         }
 
         return response.getBody();
+    }
+
+    public Boolean postParkingPlace(ParkingPlace parkingPlace, User user, String password) {        //отправка отредактированого парковочного места (необходимо отправить в метод пользователя с правами администратора), редактирование привязки пользователя запрещено
+        user.setPassword(password);                                                //Необходим корректный пароль аккаунта для получения ответа от сервера
+        parkingPlace.setUser(user);                                               //Отправлять только парковочное место полученое с сервера и после отредактированое
+        RestTemplate restTemplate = new RestTemplate();
+        String resourceUrl = "http://localhost:8080/user/parking/redact";
+
+        HttpEntity<ParkingPlace> request = new HttpEntity<ParkingPlace>(parkingPlace);
+
+        ResponseEntity<Boolean> response = restTemplate.exchange(resourceUrl, HttpMethod.POST, request , Boolean.class);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            System.out.println("Request Successful");
+        } else {
+            System.out.println(response.getStatusCode());
+        }
+
+        return response.getBody();  //возврат false при запрете доступа
     }
 }

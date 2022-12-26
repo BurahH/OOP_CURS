@@ -1,17 +1,14 @@
 package com.Server.service;
 
-import com.API.domain.Personal;
 import com.API.domain.Role;
 import com.API.domain.User;
 import com.Server.repos.UserRepos;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UserService{
@@ -51,6 +48,8 @@ public class UserService{
 
         User user = new User();
 
+        password = BCrypt.hashpw (password, BCrypt.gensalt());
+
         user.setUsername(username);
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
@@ -66,11 +65,26 @@ public class UserService{
 
     public User userCheck(User user){
         User userCheck = userRepos.findByUsername(user.getUsername());
-        if((userCheck != null) && (user.getPassword().equals(userCheck.getPassword()))){
+        if((userCheck != null) && (BCrypt.checkpw(user.getPassword(), userCheck.getPassword()))){
             return userCheck;
         }
         else{
             return null;
         }
+    }
+
+    public List<User> getUser() {
+        return userRepos.findAll();
+    }
+
+    public void redactUser(User user) {
+        if(user.checkPassword()){
+            user.setPassword(BCrypt.hashpw (user.getPassword(), BCrypt.gensalt()));
+        }
+        userRepos.save(user);
+    }
+
+    public User findById(Long id) {
+        return userRepos.getOne(id);
     }
 }
