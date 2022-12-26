@@ -96,7 +96,7 @@ public class EnterFrame extends JFrame {
                     personal.setUser(user);
                     personal.setAge(18);
                     personal.setName("666");
-                    user = profileService.postPersonal(user, personal);
+                    user = profileService.postPersonal(personal);
                     setVisible(false);
                     MainFrame mainFrame = new MainFrame(user);
                     mainFrame.setSize(1000, 600);

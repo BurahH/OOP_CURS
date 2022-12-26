@@ -75,4 +75,10 @@ public class ProfileController {
     public List<Message> getMessage(@RequestBody User user){
         return messageService.findByUser(user);
     }
+
+    @PostMapping("/message/delete")
+    public Boolean deleteMessage(@RequestBody Message message){
+        messageService.deleteMessage(message);
+        return true;
+    }
 }

@@ -16,6 +16,7 @@ import java.util.List;
 public class ProfileService {
 
     public User postPersonal(User user, Personal personal) {
+        personal.setUser(user);
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/personal";
 
@@ -50,6 +51,7 @@ public class ProfileService {
     }
 
     public User postPhone(User user, Phone phone) {
+        phone.setUser(user);
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/phone";
 
@@ -101,6 +103,7 @@ public class ProfileService {
     }
 
     public User postMessage(User user, Message message) {
+        message.setUser(user);
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/message/find";
 
@@ -131,6 +134,23 @@ public class ProfileService {
             System.out.println(response.getStatusCode());
         }
         System.out.println(response.getBody());
+        return response.getBody();
+    }
+
+    public Boolean deleteMessage(Message message) {
+        RestTemplate restTemplate = new RestTemplate();
+        String resourceUrl = "http://localhost:8080/message/delete";
+
+        HttpEntity<Message> request = new HttpEntity<Message>(message);
+
+        ResponseEntity<Boolean> response = restTemplate.exchange(resourceUrl, HttpMethod.POST, request , Boolean.class);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            System.out.println("Request Successful");
+        } else {
+            System.out.println(response.getStatusCode());
+        }
+
         return response.getBody();
     }
 }
