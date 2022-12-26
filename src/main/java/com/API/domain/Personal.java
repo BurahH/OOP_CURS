@@ -21,6 +21,10 @@ public class Personal {
         this.user = user;
     }
 
+    public Personal() {
+
+    }
+
     public Long getId() {
         return id;
     }

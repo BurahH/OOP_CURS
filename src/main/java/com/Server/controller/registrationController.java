@@ -16,9 +16,6 @@ public class registrationController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserRepos userRepos;
-
     @PostMapping(value = "/registration")
     public Boolean registration(@RequestBody User user, UriComponentsBuilder builder) {
         boolean check = userService.addNewUser(user.getUsername(), user.getPassword());

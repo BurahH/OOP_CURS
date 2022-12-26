@@ -28,7 +28,7 @@ public class RegistrationService {
         return response.getBody();
     }
 
-    public void postRegistration(String username, String password){
+    public boolean postRegistration(String username, String password){
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/registration";
         User user = new User();
@@ -46,6 +46,7 @@ public class RegistrationService {
         }
 
         System.out.println(response.getBody());
+        return response.getBody();
     }
 
 

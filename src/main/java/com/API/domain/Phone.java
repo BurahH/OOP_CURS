@@ -14,6 +14,14 @@ public class Phone {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public Phone(String number, User user) {
+        this.number = number;
+        this.user = user;
+    }
+
+    public Phone() {
+    }
+
     public String getNumber() {
         return number;
     }

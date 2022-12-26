@@ -17,10 +17,6 @@ public class User{
 
     private boolean active;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "message_id")
-    private Message message;
-
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
@@ -71,14 +67,6 @@ public class User{
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public Message getMessage() {
-        return message;
-    }
-
-    public void setMessage(Message message) {
-        this.message = message;
     }
 
     public void setUsername(String username) {

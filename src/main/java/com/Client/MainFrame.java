@@ -1,11 +1,13 @@
 package com.Client;
 
+import com.API.domain.User;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
 
-    public MainFrame() throws HeadlessException {
+    public MainFrame(User user) throws HeadlessException {
         super("Auto-Vision");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());

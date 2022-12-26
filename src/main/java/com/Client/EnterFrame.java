@@ -1,9 +1,16 @@
 package com.Client;
 
+import com.API.Service.ProfileService;
+import com.API.Service.RegistrationService;
+import com.API.domain.Phone;
+import com.API.domain.User;
+import com.Server.service.PhoneService;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class EnterFrame extends JFrame {
     public EnterFrame() throws HeadlessException {
@@ -72,11 +79,25 @@ public class EnterFrame extends JFrame {
         enter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                MainFrame mainFrame = new MainFrame();
-                mainFrame.setSize(1000, 600);
-                mainFrame.setLocationRelativeTo(null);
-                mainFrame.setVisible(true);
+                String username = loginText.getText();
+                String password = passwordText.getText();
+                RegistrationService registrationService = new RegistrationService();
+                User user = registrationService.postLogin(username, password);
+
+                if (user == null) {
+                    JOptionPane.showMessageDialog(EnterFrame.this, "Неверная пара логин-пароль!");
+                } else {
+                    ProfileService profileService = new ProfileService();
+                    user = profileService.postPhone(user, "899971246721");
+                    user = profileService.postPhone(user, "811111111111");
+                    user = profileService.postPhone(user, "855555555555");
+                    List<Phone> phone = profileService.getPhone(user);
+                    setVisible(false);
+                    MainFrame mainFrame = new MainFrame(user);
+                    mainFrame.setSize(1000, 600);
+                    mainFrame.setLocationRelativeTo(null);
+                    mainFrame.setVisible(true);
+                }
             }
         });
 

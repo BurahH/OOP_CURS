@@ -22,7 +22,7 @@ public class RegFrame extends JFrame {
         JLabel passwordLabel1 = new JLabel("Пароль");
         JTextField passwordText1 = new JPasswordField(20);
 
-        JLabel passwordLabel2 = new JLabel("Подтверждение паролья");
+        JLabel passwordLabel2 = new JLabel("Подтверждение пароля");
         JTextField passwordText2 = new JPasswordField(20);
 
         JButton reg = new JButton("Зарегистрироваться");
@@ -112,12 +112,17 @@ public class RegFrame extends JFrame {
                 String repeatPassword = passwordText2.getText();
                 if(password.equals(repeatPassword)){
                     RegistrationService registrationService = new RegistrationService();
-                    registrationService.postRegistration(username, password);
-                    //setVisible(false);
-                    //MainFrame mainFrame = new MainFrame();
-                    //mainFrame.setSize(1000, 600);
-                    //mainFrame.setLocationRelativeTo(null);
-                    //mainFrame.setVisible(true);
+                    boolean response = registrationService.postRegistration(username, password);
+
+                    if (response == true) {
+                        setVisible(false);
+                        EnterFrame enterFrame = new EnterFrame();
+                        enterFrame.setSize(1000, 600);
+                        enterFrame.setLocationRelativeTo(null);
+                        enterFrame.setVisible(true);
+                    }else {
+                        JOptionPane.showMessageDialog(RegFrame.this, "Пользователь с таким логином или паролем уже существует!");
+                    }
                 }
             }
         });

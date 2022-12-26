@@ -1,5 +1,6 @@
 package com.Server.service;
 
+import com.API.domain.Personal;
 import com.API.domain.Role;
 import com.API.domain.User;
 import com.Server.repos.UserRepos;
@@ -20,6 +21,7 @@ public class UserService{
 
     @Autowired
     private UserRepos userRepos;
+
 
     public boolean checkUser(User user, String password){
         if(user.getPassword().equals(password)){
@@ -64,7 +66,7 @@ public class UserService{
 
     public User userCheck(User user){
         User userCheck = userRepos.findByUsername(user.getUsername());
-        if((userCheck != null) && (user.getPassword() == userCheck.getPassword())){
+        if((userCheck != null) && (user.getPassword().equals(userCheck.getPassword()))){
             return userCheck;
         }
         else{
