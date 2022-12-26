@@ -19,13 +19,13 @@ public class registrationController {
     @PostMapping(value = "/registration")
     public Boolean registration(@RequestBody User user, UriComponentsBuilder builder) {
         boolean check = userService.addNewUser(user.getUsername(), user.getPassword());
-        return check;           //TODO возвращает true если успешная решитрация и false если не успешная
+        return check;
     }
 
     @PostMapping(value = "/login")
     public User login(@RequestBody User user, UriComponentsBuilder builder) {
         User userCheck = userService.userCheck(user);
-        return userCheck;  //TODO Возвращаяет пользователя со всеми данными (проверить зависимые классы)
+        return userCheck;
     }
 
 }

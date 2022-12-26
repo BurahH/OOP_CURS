@@ -34,11 +34,8 @@ public class ProfileController {
     @PostMapping("/personal")
     public User setPersonal(@RequestBody Personal personal, UriComponentsBuilder builder){
         User user = userService.findByUsername(personal.getUser().getUsername());
-        Personal personalNew = new Personal();
-        personalNew.setName(personal.getName());
-        personalNew.setAge(personal.getAge());
-        personalNew.setUser(user);
-        personalService.personalSave(personalNew);
+        personal.setUser(user);
+        personalService.personalSave(personal);
         return user;
     }
 
@@ -50,10 +47,8 @@ public class ProfileController {
     @PostMapping("/phone")
     public User setPhone(@RequestBody Phone phone, UriComponentsBuilder builder){
         User user = userService.findByUsername(phone.getUser().getUsername());
-        Phone phoneNew = new Phone();
-        phoneNew.setNumber(phone.getNumber());
-        phoneNew.setUser(user);
-        phoneService.savePhone(phoneNew);
+        phone.setUser(user);
+        phoneService.savePhone(phone);
         return user;
     }
 
@@ -71,10 +66,8 @@ public class ProfileController {
     @PostMapping("/message")
     public User setMessage(@RequestBody Message message, UriComponentsBuilder builder){
         User user = userService.findByUsername(message.getUser().getUsername());
-        Message messageNew = new Message();
-        messageNew.setMessage(message.getMessage());
-        messageNew.setUser(user);
-        messageService.saveMessage(messageNew);
+        message.setUser(user);
+        messageService.saveMessage(message);
         return user;
     }
 

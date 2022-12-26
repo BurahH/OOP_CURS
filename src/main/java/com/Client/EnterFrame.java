@@ -2,6 +2,7 @@ package com.Client;
 
 import com.API.Service.ProfileService;
 import com.API.Service.RegistrationService;
+import com.API.domain.Personal;
 import com.API.domain.Phone;
 import com.API.domain.User;
 import com.Server.service.PhoneService;
@@ -88,10 +89,14 @@ public class EnterFrame extends JFrame {
                     JOptionPane.showMessageDialog(EnterFrame.this, "Неверная пара логин-пароль!");
                 } else {
                     ProfileService profileService = new ProfileService();
-                    user = profileService.postPhone(user, "899971246721");
-                    user = profileService.postPhone(user, "811111111111");
-                    user = profileService.postPhone(user, "855555555555");
-                    List<Phone> phone = profileService.getPhone(user);
+                    Personal personal = profileService.getPersonal(user);
+                    if(personal == null){
+                        personal = new Personal();
+                    }
+                    personal.setUser(user);
+                    personal.setAge(18);
+                    personal.setName("666");
+                    user = profileService.postPersonal(user, personal);
                     setVisible(false);
                     MainFrame mainFrame = new MainFrame(user);
                     mainFrame.setSize(1000, 600);

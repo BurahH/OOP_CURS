@@ -15,11 +15,11 @@ import java.util.List;
 
 public class ProfileService {
 
-    public User postPersonal(User user, int age, String name) {
+    public User postPersonal(User user, Personal personal) {
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/personal";
 
-        HttpEntity<Personal> request = new HttpEntity<Personal>(new Personal(age, name, user));
+        HttpEntity<Personal> request = new HttpEntity<Personal>(personal);
 
         ResponseEntity<User> response = restTemplate.exchange(resourceUrl, HttpMethod.POST, request , User.class);
 
@@ -49,11 +49,11 @@ public class ProfileService {
         return response.getBody();
     }
 
-    public User postPhone(User user, String number) {
+    public User postPhone(User user, Phone phone) {
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/phone";
 
-        HttpEntity<Phone> request = new HttpEntity<Phone>(new Phone(number, user));
+        HttpEntity<Phone> request = new HttpEntity<Phone>(phone);
 
         ResponseEntity<User> response = restTemplate.exchange(resourceUrl, HttpMethod.POST, request , User.class);
 
@@ -100,11 +100,11 @@ public class ProfileService {
         return response.getBody();
     }
 
-    public User postMessage(User user, String mes) {
+    public User postMessage(User user, Message message) {
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/message/find";
 
-        HttpEntity<Message> request = new HttpEntity<Message>(new Message(mes, user));
+        HttpEntity<Message> request = new HttpEntity<Message>(message);
 
         ResponseEntity<User> response = restTemplate.exchange(resourceUrl, HttpMethod.POST, request , User.class);
 
