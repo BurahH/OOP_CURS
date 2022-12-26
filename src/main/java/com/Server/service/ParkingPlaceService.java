@@ -2,11 +2,14 @@ package com.Server.service;
 
 import com.API.domain.ParkingPlace;
 import com.API.domain.Price;
+import com.API.domain.User;
 import com.Server.repos.ParkingPlaceRepos;
 import com.Server.repos.PriceRepos;
+import com.Server.repos.UserRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,9 +20,12 @@ public class ParkingPlaceService {
     @Autowired
     private PriceRepos priceRepos;
 
+    @Autowired
+    private UserRepos userRepos;
+
     public List<ParkingPlace> findAll() {
         List<ParkingPlace> parkingPlaceList = parkingPlaceRepos.findAll();
-        if(parkingPlaceList == null){
+        if(parkingPlaceList.size() == 0){
             int i;
             Price price;
             Long number;
@@ -38,5 +44,14 @@ public class ParkingPlaceService {
             }
         }
         return parkingPlaceRepos.findAll();
+    }
+
+    public void buyParkingPlace(ParkingPlace parkingPlace) {
+        User user = userRepos.getOne(parkingPlace.getUser().getId());
+        Date date = parkingPlace.getEndDate();
+        parkingPlace = parkingPlaceRepos.getOne(parkingPlace.getId());
+        parkingPlace.setEndDate(date);
+        parkingPlace.setUser(user);
+        parkingPlaceRepos.save(parkingPlace);
     }
 }

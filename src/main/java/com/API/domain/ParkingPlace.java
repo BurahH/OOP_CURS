@@ -53,6 +53,22 @@ public class ParkingPlace {
         this.user = user;
     }
 
+    public Price getPrice() {
+        return price;
+    }
+
+    public void setPrice(Price price) {
+        this.price = price;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     public boolean haveUser(){
         if(this.user == null){
             return false;
