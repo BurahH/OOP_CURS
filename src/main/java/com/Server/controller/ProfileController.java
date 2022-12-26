@@ -62,6 +62,12 @@ public class ProfileController {
         return phoneService.findByUser(user);
     }
 
+    @PostMapping("/phone/delete")
+    public Boolean deletePhone(@RequestBody Phone phone){
+        phoneService.deletePhone(phone);
+        return true;
+    }
+
     @PostMapping("/message")
     public User setMessage(@RequestBody Message message, UriComponentsBuilder builder){
         User user = userService.findByUsername(message.getUser().getUsername());

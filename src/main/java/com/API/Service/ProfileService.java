@@ -83,6 +83,23 @@ public class ProfileService {
         return response.getBody();
     }
 
+    public Boolean deletePhone(Phone phone) {
+        RestTemplate restTemplate = new RestTemplate();
+        String resourceUrl = "http://localhost:8080/phone/delete";
+
+        HttpEntity<Phone> request = new HttpEntity<Phone>(phone);
+
+        ResponseEntity<Boolean> response = restTemplate.exchange(resourceUrl, HttpMethod.POST, request , Boolean.class);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            System.out.println("Request Successful");
+        } else {
+            System.out.println(response.getStatusCode());
+        }
+
+        return response.getBody();
+    }
+
     public User postMessage(User user, String mes) {
         RestTemplate restTemplate = new RestTemplate();
         String resourceUrl = "http://localhost:8080/message/find";

@@ -20,4 +20,9 @@ public class PhoneService {
     public List<Phone> findByUser(User user) {
         return phoneRepos.findByUser(user);
     }
+
+    public void deletePhone(Phone phone) {
+        Phone dPhone = phoneRepos.getOne(phone.getId());
+        phoneRepos.delete(dPhone);
+    }
 }

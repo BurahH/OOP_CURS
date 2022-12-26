@@ -8,8 +8,18 @@ public class Price {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    private int price;
-    private int mouth;
+    private int priceOne;
+    private int priceTwo;
+    private int priceThree;
+
+    public Price(int priceOne, int priceTwo, int priceThree) {
+        this.priceOne = priceOne;
+        this.priceTwo = priceTwo;
+        this.priceThree = priceThree;
+    }
+
+    public Price() {
+    }
 
     public Long getId() {
         return id;
@@ -19,19 +29,27 @@ public class Price {
         this.id = id;
     }
 
-    public int getPrice() {
-        return price;
+    public int getPriceOne() {
+        return priceOne;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setPriceOne(int priceOne) {
+        this.priceOne = priceOne;
     }
 
-    public int getMouth() {
-        return mouth;
+    public int getPriceTwo() {
+        return priceTwo;
     }
 
-    public void setMouth(int mouth) {
-        this.mouth = mouth;
+    public void setPriceTwo(int priceTwo) {
+        this.priceTwo = priceTwo;
+    }
+
+    public int getPriceThree() {
+        return priceThree;
+    }
+
+    public void setPriceThree(int priceThree) {
+        this.priceThree = priceThree;
     }
 }

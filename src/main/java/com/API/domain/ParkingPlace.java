@@ -11,13 +11,21 @@ public class ParkingPlace {
 
     private Long number;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "price_id")
+    private Price price;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "price_id")
-    private Price price;
+    public ParkingPlace(Long number, Price price) {
+        this.number = number;
+        this.price = price;
+    }
+
+    public ParkingPlace() {
+    }
 
     private Date endDate;
 
@@ -45,11 +53,12 @@ public class ParkingPlace {
         this.user = user;
     }
 
-    public Price getPrice() {
-        return price;
-    }
-
-    public void setPrice(Price price) {
-        this.price = price;
+    public boolean haveUser(){
+        if(this.user == null){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }
