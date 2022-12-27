@@ -14,10 +14,8 @@ public class MainFrame extends JFrame {
         JTabbedPane jTabbedPane = new JTabbedPane();
 
         jTabbedPane.addTab("Парковка", new ParkingPane());
-        jTabbedPane.addTab("Личный кабинет", new ProfilePane());
-        jTabbedPane.addTab("Пользователи", new JButton("users"));
-//        jTabbedPane.addTab("Автомобили", new CarsListPane());
-
+        jTabbedPane.addTab("Главная", new JButton("Главная"));
+        jTabbedPane.addTab("Личный кабинет", new ProfilePane(user));
 
         add(jTabbedPane);
     }

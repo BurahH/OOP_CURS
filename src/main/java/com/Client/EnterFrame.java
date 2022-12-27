@@ -1,19 +1,15 @@
 package com.Client;
 
-import com.API.Service.ParkingService;
 import com.API.Service.ProfileService;
 import com.API.Service.RegistrationService;
-import com.API.domain.ParkingPlace;
 import com.API.domain.Personal;
-import com.API.domain.Phone;
 import com.API.domain.User;
-import com.Server.service.PhoneService;
+import com.Server.service.PersonalService;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class EnterFrame extends JFrame {
     public EnterFrame() throws HeadlessException {
@@ -90,14 +86,18 @@ public class EnterFrame extends JFrame {
                 if (user == null) {
                     JOptionPane.showMessageDialog(EnterFrame.this, "Неверная пара логин-пароль!");
                 } else {
-                    ParkingService parkingService = new ParkingService();
-                    List<ParkingPlace> parkingPlaces = parkingService.getParkingPlace();
-
-                    //setVisible(false);
-                    //MainFrame mainFrame = new MainFrame(user);
-                    //mainFrame.setSize(1000, 600);
-                    //mainFrame.setLocationRelativeTo(null);
-                    //mainFrame.setVisible(true);
+//                    ProfileService profileService = new ProfileService();
+//                    Personal personal = profileService.getPersonal(user);
+//                    if (personal == null){
+//                        personal.setAge(0);
+//                        personal.setName("");
+//                        personal.setUser(user);
+//                    }
+                    setVisible(false);
+                    MainFrame mainFrame = new MainFrame(user);
+                    mainFrame.setSize(1000, 600);
+                    mainFrame.setLocationRelativeTo(null);
+                    mainFrame.setVisible(true);
                 }
             }
         });
