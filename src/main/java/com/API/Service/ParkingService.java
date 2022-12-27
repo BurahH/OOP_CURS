@@ -81,4 +81,21 @@ public class ParkingService {
 
         return response.getBody();  //возврат false при запрете доступа
     }
+
+    public List<ParkingPlace> getByUserParkingPlace(User user) {          //получение всех парковочных мест
+        RestTemplate restTemplate = new RestTemplate();
+        String resourceUrl = "http://localhost:8080/parking/find";
+
+        HttpEntity<User> request = new HttpEntity<User>(user);
+
+        ResponseEntity<List<ParkingPlace>> response = restTemplate.exchange(resourceUrl, HttpMethod.POST,  request, new ParameterizedTypeReference<List<ParkingPlace>>(){});
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            System.out.println("Request Successful");
+        } else {
+            System.out.println(response.getStatusCode());
+        }
+
+        return response.getBody();
+    }
 }

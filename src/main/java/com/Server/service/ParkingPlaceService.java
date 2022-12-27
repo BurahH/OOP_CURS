@@ -70,4 +70,8 @@ public class ParkingPlaceService {
         parkingPlaceRepos.save(parkingPlace);
         return true;
     }
+
+    public List<ParkingPlace> findParkingUser(User user){
+        return parkingPlaceRepos.findByUser(user);
+    }
 }

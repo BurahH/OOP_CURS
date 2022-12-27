@@ -43,4 +43,10 @@ public class ParkingController {
             return parkingPlaceService.redactParkingPlace(parkingPlace);
         }
     }
+
+    @PostMapping("/parking/find")
+    public List<ParkingPlace> findParkingPlace(@RequestBody User user){
+        User userNew = userService.findByUsername(user.getUsername());
+        return parkingPlaceService.findParkingUser(userNew);
+    }
 }
