@@ -85,20 +85,19 @@ public class EnterFrame extends JFrame {
 
                 if (user == null) {
                     JOptionPane.showMessageDialog(EnterFrame.this, "Неверная пара логин-пароль!");
-                } else {
-//                    ProfileService profileService = new ProfileService();
-//                    Personal personal = profileService.getPersonal(user);
-//                    if (personal == null){
-//                        personal.setAge(0);
-//                        personal.setName("");
-//                        personal.setUser(user);
-//                    }
+                } else /*if (user.getRoles())*/{
                     setVisible(false);
                     MainFrame mainFrame = new MainFrame(user);
                     mainFrame.setSize(1000, 600);
                     mainFrame.setLocationRelativeTo(null);
                     mainFrame.setVisible(true);
-                }
+                }/*else{
+                    setVisible(false);
+                    AdminMainFrame adminMainFrame = new AdminMainFrame(user);
+                    adminMainFrame.setSize(1000, 600);
+                    adminMainFrame.setLocationRelativeTo(null);
+                    adminMainFrame.setVisible(true);
+                }*/
             }
         });
 

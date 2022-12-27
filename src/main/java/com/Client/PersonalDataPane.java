@@ -9,7 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PersonalDataPane extends JPanel {
@@ -84,18 +83,8 @@ public class PersonalDataPane extends JPanel {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String number = JOptionPane.showInputDialog(
-                        panel1,
-                        "Введите номер телефона",
-                        "Добавление",
-                        JOptionPane.PLAIN_MESSAGE);
-
-                if (number != null) {
-                    Phone phone = new Phone();
-                    phone.setNumber(number);
-                    profileService.postPhone(user, phone);
-                    phonesListModel.addPhone(phone);
-                }
+                EditPhoneDialog editPhoneDialog = new EditPhoneDialog();
+                editPhoneDialog.addPhone(profileService, phonesListModel, user);
             }
         });
 
@@ -118,15 +107,8 @@ public class PersonalDataPane extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedIndex = list.getSelectedIndex();
-                String number = JOptionPane.showInputDialog(
-                        panel1,
-                        "Введите номер телефона",
-                        "Редактирование",
-                        JOptionPane.PLAIN_MESSAGE);
-
-                if (number != null) {
-                    phonesListModel.editPhone(user, number, selectedIndex, profileService);
-                }
+                EditPhoneDialog editPhoneDialog = new EditPhoneDialog();
+                editPhoneDialog.editPhone(user, profileService, phonesListModel, selectedIndex);
             }
         });
 
@@ -134,9 +116,14 @@ public class PersonalDataPane extends JPanel {
         buttonPanel.add(editButton);
         buttonPanel.add(delButton);
 
+        JPanel lp = new JPanel();
+        lp.setLayout(gridBagLayout);
+        lp.add(new JLabel("Номера:"), c1);
+        lp.add(list, c2);
+
         panel1.setLayout(new BorderLayout());
         panel1.add(addButton, BorderLayout.CENTER);
-        panel1.add(list, BorderLayout.NORTH);
+        panel1.add(lp, BorderLayout.NORTH);
         panel1.add(buttonPanel, BorderLayout.SOUTH);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panel, panel1);

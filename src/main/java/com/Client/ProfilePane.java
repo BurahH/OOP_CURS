@@ -12,7 +12,8 @@ public class ProfilePane extends JPanel{
         JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.LEFT);
         tabbedPane.addTab("Личные данные", new PersonalDataPane(user));
         tabbedPane.addTab("Безопасность", new JButton("БЗ"));
-        tabbedPane.addTab("Автомобили", new CarsListPane());
+        tabbedPane.addTab("Автомобили", new CarsListPane(user));
+        tabbedPane.addTab("Сообщения", new JButton("messages"));
         add(tabbedPane);
 
     }

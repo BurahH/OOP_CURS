@@ -7,9 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainFrame extends JFrame {
-
-    public MainFrame(User user) throws HeadlessException {
+public class AdminMainFrame extends JFrame {
+    public AdminMainFrame(User user) throws HeadlessException {
         super("Auto-Vision");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -20,8 +19,8 @@ public class MainFrame extends JFrame {
         panel.add(exit, BorderLayout.SOUTH);
 
         jTabbedPane.addTab("Парковка", new ParkingPane());
-        jTabbedPane.addTab("Главная", panel);
-        jTabbedPane.addTab("Личный кабинет", new ProfilePane(user));
+        jTabbedPane.addTab("Пользователи", panel);
+        jTabbedPane.addTab("Сообщения", new ProfilePane(user));
 
         exit.addActionListener(new ActionListener() {
             @Override

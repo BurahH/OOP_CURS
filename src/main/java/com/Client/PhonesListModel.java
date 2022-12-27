@@ -32,6 +32,7 @@ public class PhonesListModel extends AbstractListModel {
         profileService.deletePhone(removePhone);
         fireIntervalRemoved(removePhone, index, index);
     }
+
     public void editPhone(User user, String number, int index, ProfileService profileService) {
         List<Phone> list0 = profileService.getPhone(user);
         Phone phone = list0.get(index);
