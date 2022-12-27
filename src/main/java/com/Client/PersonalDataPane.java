@@ -67,7 +67,7 @@ public class PersonalDataPane extends JPanel {
 
         List<Phone> list0 = profileService.getPhone(user);
         for(Phone phone : list0){
-            phonesListModel.addPhone(phone);
+            phonesListModel.addPhone(user);
         }
 
         list.setCellRenderer(new DefaultListCellRenderer() {

@@ -23,9 +23,8 @@ public class PhonesListModel extends AbstractListModel {
         return list.get(index);
     }
 
-    public void addPhone(Phone phone){
-        list.add(phone);
-        fireIntervalAdded(phone, list.size() - 1, list.size() - 1);
+    public void addPhone(User user){
+        list = profileService.getPhone(user);
     }
     public void deletePhone(int index, ProfileService profileService) {
         Phone removePhone = list.remove(index);

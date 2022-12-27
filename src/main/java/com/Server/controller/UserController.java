@@ -1,5 +1,6 @@
 package com.Server.controller;
 
+import com.API.domain.Role;
 import com.API.domain.User;
 import com.Server.service.UserService;
 import org.mindrot.jbcrypt.BCrypt;
@@ -18,7 +19,7 @@ public class UserController {
     @PostMapping("/user")
     public List<User> getUser(@RequestBody User user){
         User userNew = userService.findByUsername(user.getUsername());
-        if((userNew == null) || !BCrypt.checkpw(user.getPassword(), userNew.getPassword()) || (!userNew.getRoles().contains("ADMIN"))){
+        if((userNew == null) || !BCrypt.checkpw(user.getPassword(), userNew.getPassword()) || (!userNew.getRoles().contains(Role.ADMIN))){
             return null;
         }
         else{

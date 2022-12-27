@@ -1,6 +1,7 @@
 package com.Server.controller;
 
 import com.API.domain.ParkingPlace;
+import com.API.domain.Role;
 import com.API.domain.User;
 import com.Server.service.ParkingPlaceService;
 import com.Server.service.UserService;
@@ -35,7 +36,7 @@ public class ParkingController {
     @PostMapping("/parking/redact")
     public Boolean redactParkingPlace(@RequestBody ParkingPlace parkingPlace){
         User userNew = userService.findByUsername(parkingPlace.getUser().getUsername());
-        if((userNew == null) || !BCrypt.checkpw(parkingPlace.getUser().getPassword(), userNew.getPassword()) || (!userNew.getRoles().contains("ADMIN"))){
+        if((userNew == null) || !BCrypt.checkpw(parkingPlace.getUser().getPassword(), userNew.getPassword()) || (!userNew.getRoles().contains(Role.ADMIN))){
             return false;
         }
         else{
