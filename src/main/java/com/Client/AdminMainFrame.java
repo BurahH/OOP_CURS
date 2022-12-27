@@ -20,7 +20,7 @@ public class AdminMainFrame extends JFrame {
 
         jTabbedPane.addTab("Парковка", new ParkingPane());
         jTabbedPane.addTab("Пользователи", panel);
-        jTabbedPane.addTab("Сообщения", new ProfilePane(user));
+        jTabbedPane.addTab("Сообщения", new JButton("messages"));
 
         exit.addActionListener(new ActionListener() {
             @Override

@@ -3,6 +3,7 @@ package com.Client;
 import com.API.Service.ProfileService;
 import com.API.Service.RegistrationService;
 import com.API.domain.Personal;
+import com.API.domain.Role;
 import com.API.domain.User;
 import com.Server.service.PersonalService;
 
@@ -85,19 +86,19 @@ public class EnterFrame extends JFrame {
 
                 if (user == null) {
                     JOptionPane.showMessageDialog(EnterFrame.this, "Неверная пара логин-пароль!");
-                } else /*if (user.getRoles())*/{
+                } else if (user.getRoles().contains(Role.USER)){
                     setVisible(false);
                     MainFrame mainFrame = new MainFrame(user);
                     mainFrame.setSize(1000, 600);
                     mainFrame.setLocationRelativeTo(null);
                     mainFrame.setVisible(true);
-                }/*else{
+                } else if (user.getRoles().contains(Role.ADMIN)){
                     setVisible(false);
                     AdminMainFrame adminMainFrame = new AdminMainFrame(user);
                     adminMainFrame.setSize(1000, 600);
                     adminMainFrame.setLocationRelativeTo(null);
                     adminMainFrame.setVisible(true);
-                }*/
+                }
             }
         });
 

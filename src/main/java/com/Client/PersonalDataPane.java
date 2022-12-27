@@ -64,11 +64,7 @@ public class PersonalDataPane extends JPanel {
 
         PhonesListModel phonesListModel = new PhonesListModel();
         JList<Phone> list = new JList<Phone>(phonesListModel);
-
-        List<Phone> list0 = profileService.getPhone(user);
-        for(Phone phone : list0){
-            phonesListModel.addPhone(user);
-        }
+        phonesListModel.addPhone(user);
 
         list.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -92,12 +88,12 @@ public class PersonalDataPane extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedIndex = list.getSelectedIndex();
-                int selection = JOptionPane.showConfirmDialog(panel1, "Удалить автомобиль?",
+                int selection = JOptionPane.showConfirmDialog(panel1, "Удалить номер телефона?",
                         "Подтверждение удаления",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE);
                 if (selection == JOptionPane.OK_OPTION) {
-                    phonesListModel.deletePhone(selectedIndex, profileService);
+                    phonesListModel.deletePhone(user, selectedIndex, profileService);
                 }
 
             }
@@ -118,7 +114,7 @@ public class PersonalDataPane extends JPanel {
 
         JPanel lp = new JPanel();
         lp.setLayout(gridBagLayout);
-        lp.add(new JLabel("Номера:"), c1);
+        lp.add(new JLabel("Номера: "), c1);
         lp.add(list, c2);
 
         panel1.setLayout(new BorderLayout());

@@ -10,7 +10,6 @@ import java.util.List;
 
 public class PhonesListModel extends AbstractListModel {
     private List<Phone> list = new ArrayList<>();
-
     private ProfileService profileService = new ProfileService();
 
     @Override
@@ -22,20 +21,18 @@ public class PhonesListModel extends AbstractListModel {
     public Object getElementAt(int index) {
         return list.get(index);
     }
-
     public void addPhone(User user){
         list = profileService.getPhone(user);
     }
-    public void deletePhone(int index, ProfileService profileService) {
+    public void deletePhone(User user, int index, ProfileService profileService) {
+        List<Phone> list0 = profileService.getPhone(user);
+        list = list0;
         Phone removePhone = list.remove(index);
         profileService.deletePhone(removePhone);
         fireIntervalRemoved(removePhone, index, index);
     }
-
     public void editPhone(User user, String number, int index, ProfileService profileService) {
-        List<Phone> list0 = profileService.getPhone(user);
-        Phone phone = list0.get(index);
-        list = list0;
+        Phone phone = list.get(index);
         phone.setNumber(number);
         profileService.postPhone(user, phone);
         fireIntervalAdded(phone, index, index);

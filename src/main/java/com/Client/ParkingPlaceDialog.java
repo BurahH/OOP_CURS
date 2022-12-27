@@ -1,17 +1,33 @@
 package com.Client;
 
+import com.API.domain.ParkingPlace;
+import com.API.domain.Price;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 /*
  * Класс второго окна
- * */
+  */
 public class ParkingPlaceDialog extends JDialog {
     //Конструктор второго окна
-    public ParkingPlaceDialog(String x) {
-        int y = 40000;
+    public ParkingPlaceDialog(String x, List<ParkingPlace> parkingPlaces) {
+        int rome = 0;
+        try {
+            rome = Integer.parseInt(x);
+
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+
+        ParkingPlace parkingPlace = parkingPlaces.get(rome-1);
+        Price price = parkingPlace.getPrice();
+        int y= price.getPriceOne();
+
+
         int z = 0;
         //Делаем невидимым окно
         setVisible(false);
@@ -102,7 +118,7 @@ public class ParkingPlaceDialog extends JDialog {
                 }
 
                 if (rom >= 0 && rom < 4) {
-                    int y=40000;
+                    int y= price.getPriceOne();
                     int z=y*rom;
                     String arend = "Аренда " + y + " р/м";
                     String cost = "Общая стоимость " + z + " p";
@@ -111,7 +127,7 @@ public class ParkingPlaceDialog extends JDialog {
                 }
 
                 if (rom > 3 && rom < 9) {
-                    int y=35000;
+                    int y= price.getPriceTwo();
                     int z=y*rom;
                     String arend = "Аренда " + y + " р/м";
                     String cost = "Общая стоимость " + z + " p";
@@ -120,7 +136,7 @@ public class ParkingPlaceDialog extends JDialog {
                 }
 
                 if (rom > 8 ) {
-                    int y=30000;
+                    int y= price.getPriceThree();
                     int z=y*rom;
                     String arend = "Аренда " + y + " р/м";
                     String cost = "Общая стоимость " + z + " p";

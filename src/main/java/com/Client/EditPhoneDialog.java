@@ -53,7 +53,6 @@ public class EditPhoneDialog extends JDialog {
         setSize(500, 300);
         setLocationRelativeTo(null);
     }
-
     public void editPhone(User user, ProfileService profileService, PhonesListModel phonesListModel, int selectedIndex){
         ok.addActionListener(new ActionListener() {
             @Override
