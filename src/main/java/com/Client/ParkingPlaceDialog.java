@@ -1,7 +1,9 @@
 package com.Client;
 
+import com.API.Service.ParkingService;
 import com.API.domain.ParkingPlace;
 import com.API.domain.Price;
+import com.API.domain.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,10 +13,14 @@ import java.util.List;
 
 /*
  * Класс второго окна
-  */
+ */
 public class ParkingPlaceDialog extends JDialog {
+    private int z;
+    private int y;
+
     //Конструктор второго окна
-    public ParkingPlaceDialog(String x, List<ParkingPlace> parkingPlaces) {
+    public ParkingPlaceDialog(JButton button, List<ParkingPlace> parkingPlaces, User user) {
+        String x = button.getText();
         int rome = 0;
         try {
             rome = Integer.parseInt(x);
@@ -22,13 +28,11 @@ public class ParkingPlaceDialog extends JDialog {
         } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
-
-        ParkingPlace parkingPlace = parkingPlaces.get(rome-1);
+        ParkingPlace parkingPlace = parkingPlaces.get(rome - 1);
         Price price = parkingPlace.getPrice();
-        int y= price.getPriceOne();
 
 
-        int z = 0;
+        z = 0;
         //Делаем невидимым окно
         setVisible(false);
         //Устанавливаем размеры
@@ -103,11 +107,11 @@ public class ParkingPlaceDialog extends JDialog {
         panel.add(enter, c10);
         panel.add(reg, c9);
         add(panel);
+        int y = 0;
         reg.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                // Делаем видимым второе окно
                 String str = loginText.getText();
                 int rom = 0;
                 try {
@@ -118,8 +122,8 @@ public class ParkingPlaceDialog extends JDialog {
                 }
 
                 if (rom >= 0 && rom < 4) {
-                    int y= price.getPriceOne();
-                    int z=y*rom;
+                    int y = price.getPriceOne();
+                    int z = y * rom;
                     String arend = "Аренда " + y + " р/м";
                     String cost = "Общая стоимость " + z + " p";
                     SwingUtilities.invokeLater(() -> Arend.setText(arend));
@@ -127,24 +131,51 @@ public class ParkingPlaceDialog extends JDialog {
                 }
 
                 if (rom > 3 && rom < 9) {
-                    int y= price.getPriceTwo();
-                    int z=y*rom;
+                    int y = price.getPriceTwo();
+                    int z = y * rom;
                     String arend = "Аренда " + y + " р/м";
                     String cost = "Общая стоимость " + z + " p";
                     SwingUtilities.invokeLater(() -> Arend.setText(arend));
                     SwingUtilities.invokeLater(() -> Cost.setText(cost));
                 }
 
-                if (rom > 8 ) {
-                    int y= price.getPriceThree();
-                    int z=y*rom;
+                if (rom > 8) {
+                    int y = price.getPriceThree();
+                    int z = y * rom;
                     String arend = "Аренда " + y + " р/м";
                     String cost = "Общая стоимость " + z + " p";
                     SwingUtilities.invokeLater(() -> Arend.setText(arend));
                     SwingUtilities.invokeLater(() -> Cost.setText(cost));
                 }
+            }
+        });
+        enter.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                String str = Cost.getText();
+                String str1 = loginText.getText();
+                int month = 0;
+                int cost = 0;
+                try {
+                    //             cost = Integer.parseInt(str);
+                    month = Integer.parseInt(str1);
+
+                } catch (NumberFormatException ex) {
+                    ex.printStackTrace();
+                }
+
+                if (month >= 0) {
+                    ParkingService parkingService = new ParkingService();
+                    Boolean parkingBuying = parkingService.buyParkingPlace(parkingPlace, user, month);
+                }
 
 
+                //SwingUtilities.invokeLater(() -> Cost.setText(cost));
+                button.setEnabled(false);
+                button.setBackground(Color.RED);
+                JOptionPane.showMessageDialog(ParkingPlaceDialog.this,"Спасибо за все!");
+                setVisible(false);
             }
         });
     }

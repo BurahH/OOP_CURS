@@ -74,7 +74,7 @@ public class EditPhoneDialog extends JDialog {
                     Phone phone = new Phone();
                     phone.setNumber(number);
                     profileService.postPhone(user, phone);
-                    phonesListModel.addPhone(user);
+                    phonesListModel.addPhone(user, phone);
                 }
                 setVisible(false);
             }

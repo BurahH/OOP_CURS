@@ -12,6 +12,8 @@ public class CarsListModel extends AbstractListModel {
 
     private List<Car> list = new ArrayList<>();
 
+    private ListCarService listCarService = new ListCarService();
+
     @Override
     public int getSize() {
         return list.size();
@@ -22,9 +24,12 @@ public class CarsListModel extends AbstractListModel {
         return list.get(index);
     }
 
-    public void addCar(Car car){
-        list.add(car);
+    public void addCar(User user, Car car){
+        list = listCarService.getCar(user);
         fireIntervalAdded(car, list.size() - 1, list.size() - 1);
+    }
+    public void addCar(User user){
+        list = listCarService.getCar(user);
     }
 
     public void deleteCar(ListCarService listCarService, int index) {
@@ -34,9 +39,7 @@ public class CarsListModel extends AbstractListModel {
     }
 
     public void editCar(ListCarService listCarService, User user, String model, String number, int index) {
-        List<Car>list0 = listCarService.getCar(user);
-        Car car = list0.get(index);
-        list = list0;
+        Car car = list.get(index);
         car.setModel(model);
         car.setNumber(number);
         listCarService.postCar(user, car);

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class ParkingPlace {
+public class ParkingPlace implements Comparable<ParkingPlace>{
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
@@ -85,5 +85,10 @@ public class ParkingPlace {
         else {
             return true;
         }
+    }
+
+    @Override
+    public int compareTo(ParkingPlace o) {
+        return number.compareTo(o.number);
     }
 }

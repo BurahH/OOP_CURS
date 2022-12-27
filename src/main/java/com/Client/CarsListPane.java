@@ -21,10 +21,7 @@ public class CarsListPane extends JPanel {
         ListCarService listCarService = new ListCarService();
 
         JList<Car> list = new JList<Car>(carsListModel);
-        List<Car> list0 = listCarService.getCar(user);
-        for(Car car : list0){
-            carsListModel.addCar(car);
-        }
+        carsListModel.addCar(user);
 
         list.setCellRenderer(new DefaultListCellRenderer() {
             @Override

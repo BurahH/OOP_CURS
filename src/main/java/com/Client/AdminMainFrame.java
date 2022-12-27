@@ -18,7 +18,7 @@ public class AdminMainFrame extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(exit, BorderLayout.SOUTH);
 
-        jTabbedPane.addTab("Парковка", new ParkingPane());
+        jTabbedPane.addTab("Парковка", new ParkingPane(user));
         jTabbedPane.addTab("Пользователи", panel);
         jTabbedPane.addTab("Сообщения", new JButton("messages"));
 

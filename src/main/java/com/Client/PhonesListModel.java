@@ -21,12 +21,14 @@ public class PhonesListModel extends AbstractListModel {
     public Object getElementAt(int index) {
         return list.get(index);
     }
+    public void addPhone(User user, Phone phone){
+        list = profileService.getPhone(user);
+        fireIntervalAdded(phone, list.size() - 1, list.size() - 1);
+    }
     public void addPhone(User user){
         list = profileService.getPhone(user);
     }
     public void deletePhone(User user, int index, ProfileService profileService) {
-        List<Phone> list0 = profileService.getPhone(user);
-        list = list0;
         Phone removePhone = list.remove(index);
         profileService.deletePhone(removePhone);
         fireIntervalRemoved(removePhone, index, index);

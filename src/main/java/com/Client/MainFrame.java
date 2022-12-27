@@ -19,7 +19,7 @@ public class MainFrame extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(exit, BorderLayout.SOUTH);
 
-        jTabbedPane.addTab("Парковка", new ParkingPane());
+        jTabbedPane.addTab("Парковка", new ParkingPane(user));
         jTabbedPane.addTab("Главная", panel);
         jTabbedPane.addTab("Личный кабинет", new ProfilePane(user));
 

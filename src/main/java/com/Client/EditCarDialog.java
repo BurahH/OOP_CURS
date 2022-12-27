@@ -87,7 +87,7 @@ public class EditCarDialog extends JDialog {
                 car.setModel(model);
                 car.setNumber(number);
                 listCarService.postCar(user, car);
-                carsListModel.addCar(car);
+                carsListModel.addCar(user, car);
                 setVisible(false);
             }
         });
