@@ -64,6 +64,9 @@ public class PersonalDataPane extends JPanel {
 
         PhonesListModel phonesListModel = new PhonesListModel();
         JList<Phone> list = new JList<Phone>(phonesListModel);
+        JScrollPane jScrollPane = new JScrollPane(list);
+        jScrollPane.setPreferredSize(new Dimension(300, 400));
+
         phonesListModel.addPhone(user);
 
         list.setCellRenderer(new DefaultListCellRenderer() {
@@ -71,7 +74,9 @@ public class PersonalDataPane extends JPanel {
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 setText(((Phone) value).getNumber());
+                setBorder(BorderFactory.createLineBorder(Color.black));
                 setHorizontalAlignment(CENTER);
+
                 return this;
             }
         });
@@ -79,7 +84,7 @@ public class PersonalDataPane extends JPanel {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EditPhoneDialog editPhoneDialog = new EditPhoneDialog();
+                EditPhoneDialog editPhoneDialog = new EditPhoneDialog("Добавление телефона");
                 editPhoneDialog.addPhone(profileService, phonesListModel, user);
             }
         });
@@ -103,7 +108,7 @@ public class PersonalDataPane extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedIndex = list.getSelectedIndex();
-                EditPhoneDialog editPhoneDialog = new EditPhoneDialog();
+                EditPhoneDialog editPhoneDialog = new EditPhoneDialog("Редактирование телефона");
                 editPhoneDialog.editPhone(user, profileService, phonesListModel, selectedIndex);
             }
         });
@@ -115,7 +120,7 @@ public class PersonalDataPane extends JPanel {
         JPanel lp = new JPanel();
         lp.setLayout(gridBagLayout);
         lp.add(new JLabel("Номера: "), c1);
-        lp.add(list, c2);
+        lp.add(jScrollPane, c2);
 
         panel1.setLayout(new BorderLayout());
         panel1.add(addButton, BorderLayout.CENTER);
@@ -130,7 +135,7 @@ public class PersonalDataPane extends JPanel {
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EditPersonalDataDialog editPersonalDataDialog = new EditPersonalDataDialog();
+                EditPersonalDataDialog editPersonalDataDialog = new EditPersonalDataDialog("Редактирование личных данных");
                 editPersonalDataDialog.editData(user, finalPersonal, nameLabel, ageLabel, profileService);
             }
         });

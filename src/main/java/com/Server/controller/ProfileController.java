@@ -1,13 +1,7 @@
 package com.Server.controller;
 
-import com.API.domain.Message;
-import com.API.domain.Personal;
-import com.API.domain.Phone;
-import com.API.domain.User;
-import com.Server.service.MessageService;
-import com.Server.service.PersonalService;
-import com.Server.service.PhoneService;
-import com.Server.service.UserService;
+import com.API.domain.*;
+import com.Server.service.*;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +24,9 @@ public class ProfileController {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private StoryRentService storyRentService;
 
     @PostMapping("/personal")
     public User setPersonal(@RequestBody Personal personal, UriComponentsBuilder builder){
@@ -98,5 +95,10 @@ public class ProfileController {
             userService.redactUser(user);
             return true;
         }
+    }
+
+    @PostMapping("/profile/story")
+    public List<StoryRent> getStory(User user){
+        return storyRentService.getStory(user);
     }
 }

@@ -18,8 +18,9 @@ public class EditPersonalDataDialog extends JDialog {
     JTextField ageText = new JTextField(20);
     JButton edit = new JButton("Сохранить");
 
-    public EditPersonalDataDialog(){
+    public EditPersonalDataDialog(String title){
         super();
+        setTitle(title);
         setVisible(true);
         GridBagLayout gridBagLayout = new GridBagLayout();
         panel.setLayout(gridBagLayout);

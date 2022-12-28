@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class CarsListPane extends JPanel {
     public CarsListPane(User user) {
@@ -21,14 +20,19 @@ public class CarsListPane extends JPanel {
         ListCarService listCarService = new ListCarService();
 
         JList<Car> list = new JList<Car>(carsListModel);
+        JScrollPane jScrollPane = new JScrollPane(list);
         carsListModel.addCar(user);
 
         list.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                setText(((Car) value).getModel() + "     " +  ((Car) value).getNumber());
+                setText("<html>" + "Марка:   " +
+                        ((Car) value).getModel() + "<br/>" +
+                        "Номер:   " +
+                        ((Car) value).getNumber());
                 setHorizontalAlignment(CENTER);
+                setBorder(BorderFactory.createLineBorder(Color.black));
                 return this;
             }
         });
@@ -36,7 +40,7 @@ public class CarsListPane extends JPanel {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EditCarDialog editCarDialog = new EditCarDialog();
+                EditCarDialog editCarDialog = new EditCarDialog("Добавление автомобиля");
                 editCarDialog.addCar(listCarService, carsListModel, user);
             }
         });
@@ -59,7 +63,7 @@ public class CarsListPane extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedIndex = list.getSelectedIndex();
-                EditCarDialog editCarDialog = new EditCarDialog();
+                EditCarDialog editCarDialog = new EditCarDialog("Редактирование автомобиля");
                 editCarDialog.editCar(user, listCarService, carsListModel, selectedIndex);
             }
         });
@@ -70,7 +74,7 @@ public class CarsListPane extends JPanel {
 
         add(addButton, BorderLayout.NORTH);
         add(buttonPanel, BorderLayout.SOUTH);
-        add(list, BorderLayout.CENTER);
+        add(jScrollPane, BorderLayout.CENTER);
 
     }
 }

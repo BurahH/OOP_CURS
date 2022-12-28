@@ -1,13 +1,7 @@
 package com.Server.service;
 
-import com.API.domain.Message;
-import com.API.domain.ParkingPlace;
-import com.API.domain.Price;
-import com.API.domain.User;
-import com.Server.repos.MessageRepos;
-import com.Server.repos.ParkingPlaceRepos;
-import com.Server.repos.PriceRepos;
-import com.Server.repos.UserRepos;
+import com.API.domain.*;
+import com.Server.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +21,9 @@ public class ParkingPlaceService {
 
     @Autowired
     private MessageRepos messageRepos;
+
+    @Autowired
+    private StoryRentRepos storyRentRepos;
 
     public List<ParkingPlace> findAll() {
         List<ParkingPlace> parkingPlaceList = parkingPlaceRepos.findAll();
@@ -56,6 +53,12 @@ public class ParkingPlaceService {
         Date date = parkingPlace.getEndDate();
         parkingPlace = parkingPlaceRepos.getOne(parkingPlace.getId());
         parkingPlace.setEndDate(date);
+        StoryRent storyRent = new StoryRent();
+        storyRent.setEndDate(date);
+        storyRent.setUser(user);
+        storyRent.setBeginDate(new Date());
+        storyRent.setEndDate(date);
+        storyRentRepos.save(storyRent);
         parkingPlace.setUser(user);
         parkingPlaceRepos.save(parkingPlace);
         Message message = new Message();

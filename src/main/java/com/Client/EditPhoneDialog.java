@@ -25,8 +25,9 @@ public class EditPhoneDialog extends JDialog {
     public JFormattedTextField numberText = new JFormattedTextField(maskFormatter);
     public JButton ok = new JButton("ok");
 
-    public EditPhoneDialog() {
+    public EditPhoneDialog(String title) {
         super();
+        setTitle(title);
         numberText.setColumns(20);
         setVisible(true);
         GridBagLayout gridBagLayout = new GridBagLayout();

@@ -13,11 +13,11 @@ public class ProfilePane extends JPanel{
         setLayout(new BorderLayout());
         JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.LEFT);
         tabbedPane.addTab("Личные данные", new PersonalDataPane(user));
-        JButton jButton = new JButton("БЗ");
 
-        tabbedPane.addTab("Безопасность", jButton);
+        tabbedPane.addTab("Безопасность", new JButton("sec"));
         tabbedPane.addTab("Автомобили", new CarsListPane(user));
-        tabbedPane.addTab("Сообщения", new JButton("messages"));
+        tabbedPane.addTab("Сообщения", new MessagesPain(user));
+
         add(tabbedPane);
 
     }

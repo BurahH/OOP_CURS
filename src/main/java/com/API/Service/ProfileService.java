@@ -1,9 +1,6 @@
 package com.API.Service;
 
-import com.API.domain.Message;
-import com.API.domain.Personal;
-import com.API.domain.Phone;
-import com.API.domain.User;
+import com.API.domain.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -106,7 +103,7 @@ public class ProfileService {
         message.setUser(user);
         message.setAuthor(recipient);
         RestTemplate restTemplate = new RestTemplate();
-        String resourceUrl = "http://localhost:8080/message/find";
+        String resourceUrl = "http://localhost:8080/message";
 
         HttpEntity<Message> request = new HttpEntity<Message>(message);
 
@@ -171,5 +168,22 @@ public class ProfileService {
         }
 
         return response.getBody();     //если false значит ошибка в текущем пароле
+    }
+
+    public List<StoryRent> getStory(User user) {                //получения всех сообщений для пользователя
+        RestTemplate restTemplate = new RestTemplate();
+        String resourceUrl = "http://localhost:8080/profile/story";
+
+        HttpEntity<User> request = new HttpEntity<User>(user);
+
+        ResponseEntity<List<StoryRent>> response = restTemplate.exchange(resourceUrl, HttpMethod.POST, request , new ParameterizedTypeReference<List<StoryRent>>(){});
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            System.out.println("Request Successful");
+        } else {
+            System.out.println(response.getStatusCode());
+        }
+
+        return response.getBody();
     }
 }
